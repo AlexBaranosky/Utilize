@@ -1,5 +1,5 @@
 (ns utilize.seq-test
-  (:use clojure.test utilize.seq clojure.set))
+  (:use clojure.test utilize.seq clojure.set midje.sweet))
 
 (deftest test-zip
   (is (= [[1 4 8] [2 5 9] [3 6 nil] [nil 7 nil]] (zip [1 2 3] [4 5 6 7] [8 9]))))
@@ -105,3 +105,18 @@
     (is (= 2 @realized))
     (is (nil? (next (next the-list))))
     (is (= 2 @realized))))
+
+(fact "use size-1 laziness, instead of 32-piece chunks"
+  (first (map prn (unchunk (range)))) => anything
+  (provided
+    (prn anything) => anything :times 1)) ;; without unchunk this would be 32
+
+(tabular
+  (fact "returns the first function that is truthy for the given args"
+    (first-truthy-fn ?fns :kw)  => (exactly ?first-truthy-fn))
+
+     ?fns                ?first-truthy-fn
+     [string? keyword?]  keyword?
+     [string? nil?]      nil
+     []                  nil
+     [keyword? odd?]     keyword? ) ;; shortcircuits when it reaches a match - evaluating (odd? :kw) would have blown up

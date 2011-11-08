@@ -201,3 +201,16 @@
            (cons items (lazy-recur [x] more))
            (lazy-recur (conj items x) more))
          [items])))))
+
+(defn unchunk
+  "force a lazy sequence to not use size 32 chunks, but true one-element laziness"
+  [s]
+  (lazy-seq (when-let [s (seq s)]
+              (cons (first s) (unchunk (rest s))))))
+
+(defn first-truthy-fn
+  "Returns the first function in a seq of functions
+  that evaluates to truthy for the given arguments - it shortcicuits,
+  only evaluating the minimum number of functions necessary"
+  [preds & args]
+  (first (filter #(apply % args) (unchunk preds))))
