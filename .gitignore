@@ -8,3 +8,4 @@ build/
 docs
 *.iml
 .idea
+.lein-failures
