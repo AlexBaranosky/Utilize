@@ -222,7 +222,7 @@
   ([coll]
     (lazy-seq coll))
   ([coll1 coll2 & colls]
-    (apply (partial interleave coll1 coll2) colls)))
+    (apply interleave coll1 coll2 colls)))
 
 (defn only
   "Gives the sole element of a sequence"

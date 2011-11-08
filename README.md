@@ -1,4 +1,4 @@
-*Utilize* - a massive function library
+*Utilize* - a Compilation of Clojure functions from around the community
 ======================================
 
 The Rational
