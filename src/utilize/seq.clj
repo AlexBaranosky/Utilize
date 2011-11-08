@@ -203,7 +203,7 @@
          [items])))))
 
 (defn unchunk
-  "force a lazy sequence to not use size 32 chunks, but true one-element laziness"
+  "Force a lazy sequence to not use size 32 chunks, but true one-element laziness"
   [s]
   (lazy-seq (when-let [s (seq s)]
               (cons (first s) (unchunk (rest s))))))
@@ -214,3 +214,14 @@
   only evaluating the minimum number of functions necessary"
   [preds & args]
   (first (filter #(apply % args) (unchunk preds))))
+
+(defn interleave++
+  "Like interleave from core, but does something sensible with 0 or 1 collection"
+  ([]
+    (lazy-seq []))
+
+  ([coll]
+    (lazy-seq coll))
+
+  ([coll1 coll2 & colls]
+    (apply (partial interleave coll1 coll2) colls)))

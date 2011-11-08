@@ -120,3 +120,12 @@
      [string? nil?]      nil
      []                  nil
      [keyword? odd?]     keyword? ) ;; shortcircuits when it reaches a match - evaluating (odd? :kw) would have blown up
+
+(tabular
+  (fact "version of interleave that also works for 0 or 1 sequences"
+    (apply interleave++ ?seqs) => ?interleaved)
+
+  ?seqs                ?interleaved
+  []                   []
+  [[1 2 3]]            [1 2 3]
+  [[1 2 3] [44 55 66]] [1 44 2 55 3 66])
