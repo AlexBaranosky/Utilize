@@ -219,9 +219,16 @@
   "Like interleave from core, but does something sensible with 0 or 1 collection"
   ([]
     (lazy-seq []))
-
   ([coll]
     (lazy-seq coll))
-
   ([coll1 coll2 & colls]
     (apply (partial interleave coll1 coll2) colls)))
+
+(defn only
+  "Gives the sole element of a sequence"
+  [coll]
+  (if (seq (rest coll))
+    (throw (RuntimeException. "should have precisely one item, but had at least 2"))
+    (if (seq coll)
+      (first coll)
+      (throw (RuntimeException. "should have precisely one item, but had 0")))))

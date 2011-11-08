@@ -129,3 +129,9 @@
   []                   []
   [[1 2 3]]            [1 2 3]
   [[1 2 3] [44 55 66]] [1 44 2 55 3 66])
+
+(fact "throws when no items"
+  (only []) => (throws RuntimeException "should have precisely one item, but had 0")
+  (only [1]) => 1
+  (only [1 2]) => (throws RuntimeException "should have precisely one item, but had at least 2")
+  (only (repeat 5)) => (throws RuntimeException "should have precisely one item, but had at least 2"))
