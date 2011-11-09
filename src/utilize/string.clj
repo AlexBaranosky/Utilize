@@ -1,23 +1,23 @@
 (ns utilize.string
-  (:require [clojure.string :as s]))
+  (:require [clojure.string :as str]))
 
 (defn camelize [string]
-  (s/replace string
+  (str/replace string
              #"[-_](\w)"
-             (comp s/upper-case second)))
+             (comp str/upper-case second)))
 
  (defn classify [string]
-   (apply str (map s/capitalize
-                   (s/split string #"[-_]"))))
+   (apply str (map str/capitalize
+                   (str/split string #"[-_]"))))
 
 (defn- from-camel-fn [separator]
   (fn [string]
     (-> string
-        (s/replace #"^[A-Z]+" s/lower-case)
-        (s/replace #"_?([A-Z]+)"
+        (str/replace #"^[A-Z]+" s/lower-case)
+        (str/replace #"_?([A-Z]+)"
                    (comp (partial str separator)
                          s/lower-case second))
-        (s/replace #"-|_" separator))))
+        (str/replace #"-|_" separator))))
 
 (def dasherize (from-camel-fn "-"))
 (def underscore (from-camel-fn "_"))
@@ -49,3 +49,6 @@
       2 (str int "nd")
       3 (str int "rd")
       (str int "th"))))
+
+(defn lowercase-keyword [s]
+  (keyword (.toLowerCase (str/replace s " " "-"))))

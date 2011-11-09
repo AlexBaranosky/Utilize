@@ -122,3 +122,7 @@
     313 "313th"
     33331 "33331st")
 
+(fact "can generate lower-case keywords from a string"
+  (lowercase-keyword "BobCratchet") => :bobcratchet
+  (lowercase-keyword "Bob Cratchet") => :bob-cratchet)
+
