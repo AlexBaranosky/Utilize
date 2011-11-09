@@ -13,10 +13,10 @@
 (defn- from-camel-fn [separator]
   (fn [string]
     (-> string
-        (str/replace #"^[A-Z]+" s/lower-case)
+        (str/replace #"^[A-Z]+" str/lower-case)
         (str/replace #"_?([A-Z]+)"
                    (comp (partial str separator)
-                         s/lower-case second))
+                         str/lower-case second))
         (str/replace #"-|_" separator))))
 
 (def dasherize (from-camel-fn "-"))
