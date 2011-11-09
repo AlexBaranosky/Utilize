@@ -135,3 +135,12 @@
   (only [1]) => 1
   (only [1 2]) => (throws RuntimeException "should have precisely one item, but had at least 2")
   (only (repeat 5)) => (throws RuntimeException "should have precisely one item, but had at least 2"))
+
+(tabular
+  (fact "extra english ways of getting nth element of a seq"
+    (?nth [1 2 3 4 5 6]) => ?element)
+
+  ?nth    ?element
+  third   3
+  fourth  4
+  fifth   5)

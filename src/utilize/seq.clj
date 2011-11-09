@@ -232,3 +232,7 @@
     (if (seq coll)
       (first coll)
       (throw (RuntimeException. "should have precisely one item, but had 0")))))
+
+(def third (comp second rest))
+(def fourth (comp second rest rest))
+(def fifth (comp second rest rest rest))
