@@ -1,17 +1,17 @@
 (ns utilize.string
   (:require [clojure.string :as str]))
 
-(defn camelize [string]
+(defn camelize [#^String string]
   (str/replace string
              #"[-_](\w)"
              (comp str/upper-case second)))
 
- (defn classify [string]
+ (defn classify [#^String string]
    (apply str (map str/capitalize
                    (str/split string #"[-_]"))))
 
-(defn- from-camel-fn [separator]
-  (fn [string]
+(defn- from-camel-fn [#^String separator]
+  (fn [#^String string]
     (-> string
         (str/replace #"^[A-Z]+" str/lower-case)
         (str/replace #"_?([A-Z]+)"
@@ -29,15 +29,15 @@
      (plural 1 \"month\") => \"1 month\"
      (plural 1 \"radius\" \"radii\") => \"1 radius\"
      (plural 9 \"radius\" \"radii\") => \"9 radii\""
-  [num singular & [plural]]
+  [num #^String singular & [plural]]
   (str num " " (if (= 1 num) singular (or plural (str singular "s")))))
 
-(defn but-last-str [s n]
+(defn but-last-str [#^String s n]
    (if (> n (.length s))
        ""
       (.substring s 0 (- (.length s) n))))
 
-(defn ordinal-to-int [ord]
+(defn ordinal-to-int [#^String ord]
   (let [digits (but-last-str ord 2)]
     (Integer/parseInt digits)))
 
@@ -50,5 +50,5 @@
       3 (str int "rd")
       (str int "th"))))
 
-(defn lowercase-keyword [s]
+(defn lowercase-keyword [#^String s]
   (keyword (.toLowerCase (str/replace s " " "-"))))
