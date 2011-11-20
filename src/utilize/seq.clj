@@ -236,3 +236,13 @@
 (def third (comp second rest))
 (def fourth (comp second rest rest))
 (def fifth (comp second rest rest rest))
+
+(defn reduce-while
+  "Like reduce, but short-circuits upon a call to f that results in logical false"
+  [f seed coll]
+  (when seed
+    (loop [acc seed, coll coll]
+      (if (empty? coll)
+        acc
+        (when-let [acc* (f acc (first coll))]
+          (recur acc* (rest coll)))))))
