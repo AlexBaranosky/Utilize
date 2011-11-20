@@ -119,8 +119,7 @@
      [string? keyword?]  keyword?
      [string? nil?]      nil
      []                  nil
-     [keyword? odd?]     keyword? ) ;; shortcircuits when it reaches a match -- 
-                                    ;; evaluating (odd? :kw) would have blown up otherwise
+     [keyword? odd?]     keyword? ) ;; shortcircuits when it reaches a match - evaluating (odd? :kw) would have blown up
 
 (tabular
   (fact "version of interleave that also works for 0 or 1 sequences"
@@ -145,10 +144,3 @@
   third   3
   fourth  4
   fifth   5)
-
-(fact "it's like reduce"
-  (reduce-while + 0 [1 2 3 4]) => 10)
-
-(fact "except falsey return values shortcircuit"
-  (reduce-while (fn [acc x] (if (string? x) (str acc x) false)) "X" ["a" "b" 3 4]) => nil
-  (reduce-while (fn [acc x] (if (string? x) (str acc x) nil))   "X" ["a" "b" 3 4]) => nil)
