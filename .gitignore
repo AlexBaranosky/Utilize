@@ -9,3 +9,4 @@ docs
 *.iml
 .idea
 .lein-failures
+.lein-deps-sum
