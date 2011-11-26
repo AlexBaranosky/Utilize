@@ -12,3 +12,10 @@
   "like clojure.core.do except evalautes the expression at the given date-time"
   `(do-at* ~base-date-time
     (fn [] ~@body)))
+
+(defmacro testable-privates 
+  "Enable testing of private functions"
+  [namespace & symbols]
+  (let [forms (for [sym symbols]
+                `(def ~sym (intern '~namespace '~sym)))]
+  `(do ~@forms)))
