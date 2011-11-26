@@ -1,6 +1,7 @@
 (ns utilize.map
   (:use [utilize.utils :only [map-entry pop-if]]
-        [utilize.fn :only [to-fix !]]))
+        [utilize.fn :only [to-fix !]]
+        [ordered.map :only [ordered-map]]))
 
 (let [transforms {:keys keyword
                   :strs str
@@ -178,3 +179,14 @@
          (for [entry m, :let [[ks vs] (map (to-fix (! set?) hash-set) entry)]
                k ks]
            {k vs})))
+
+(defn ordered-zipmap [keys vals]
+  "Like zipmap, but guarantees order of the entries"
+  (loop [m (ordered-map)
+         ks (seq keys)
+         vs (seq vals)]
+    (if (and ks vs)
+      (recur (assoc m (first ks) (first vs)) 
+             (next ks)
+             (next vs))
+      m)))

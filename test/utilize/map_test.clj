@@ -1,5 +1,6 @@
 (ns utilize.map-test
-  (:use clojure.test utilize.map))
+  (:use clojure.test utilize.map
+        midje.sweet))
 
 (deftest test-assoc-or
   (is (= {:a 1 :b 2 :c 3}
@@ -93,3 +94,13 @@
          (multi-map {:foo 1, #{:foo :bar} #{2 3 4}, #{:baz :bar} #{5 6}})))
   (is (= {:foo #{1 2}, :bar #{2 3}}
          (multi-map {:foo #{1 2}, :bar #{2 3}}))))
+
+(fact "zips two seqs together into a map - maintaining/guaranteeing order matches the original order"
+  (keys (ordered-zipmap [:a :b :c :d :e :f :g :h] [1 2 3 4 5 6 7 8])) 
+    => [:a :b :c :d :e :f :g :h]
+  (vals (ordered-zipmap [:a :b :c :d :e :f :g :h] [1 2 3 4 5 6 7 8])) 
+    => [1 2 3 4 5 6 7 8] )
+
+(fact "shortens to the smallest of the two seqs"
+  (ordered-zipmap [:a] [1 2 3 4]) => {:a 1}
+  (ordered-zipmap [:a :b :c :d] [1]) => {:a 1} )	
