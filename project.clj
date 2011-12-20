@@ -1,4 +1,4 @@
-(defproject utilize "0.1.3"
+(defproject utilize "0.2.0"
   :description "Compilation of Clojure functions from around the community"
   :dev-dependencies [[midje "1.3.0"]]
   :dependencies [[clojure "1.3.0"]
