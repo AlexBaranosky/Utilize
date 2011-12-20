@@ -1,5 +1,7 @@
 (ns utilize.fn-test
-  (:use clojure.test utilize.fn))
+  (:use clojure.test 
+        utilize.fn 
+        [midje.sweet :only [fact]]))
 
 (deftest test-decorate
   (is (= [[1 2] [2 3] [3 4]] (map (decorate inc) [1 2 3]))))
@@ -57,3 +59,6 @@
 
 (deftest test-ignoring-nils
   (is (= 6 ((ignoring-nils +) 1 nil 2 nil nil 3))))
+
+(fact 
+  (steady-state (partial drop 1) [1 2 3 4 5]) => [[2 3 4 5] [3 4 5] [4 5] [5] []])

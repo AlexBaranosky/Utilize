@@ -1,5 +1,6 @@
 (ns utilize.macro
-  (:use [clojure.tools.macro :only [macrolet]]))
+  (:use [clojure.tools.macro :only [macrolet]]
+        [utilize.fn :only [steady-state]]))
 
 (defmacro anon-macro
   "Define, and then immediately use, an anonymous macro. For
@@ -76,15 +77,9 @@ myconst 10)."
   `(binding [~var-name (~f ~var-name ~@args)]
      ~@body))
 
-(defn macroexpand-scan
+(def macroexpand-scan
   "Gives a seq of each progressive macroexpansion of the form until fully expanded"
-  ([form]
-    (macroexpand-scan form []))
-  ([form results]
-    (let [expanded (macroexpand-1 form)]
-      (if (= expanded form)
-        results
-        (recur expanded (conj results expanded))))))
+  (partial steady-state macroexpand-1))
 
 (defmacro macro-for 
   "Macroexpands the body once for each of the elements in the 

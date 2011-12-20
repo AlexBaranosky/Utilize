@@ -110,3 +110,14 @@
        (condp #(% %2) direction
          #{:desc :descending -} (comp - f)
          #{:asc :ascending +} f))))
+
+(defn steady-state
+  "Apply function f repeatedly, like iterate does, but stopping when 
+   you get a repeated value"
+  ([f x]
+    (steady-state f x []))
+  ([f x results]
+    (let [calculated (f x)]
+      (if (= calculated x)
+        results
+        (recur f calculated (conj results calculated))))))
