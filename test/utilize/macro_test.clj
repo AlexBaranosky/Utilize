@@ -29,6 +29,12 @@
     (is (= 4 (with-altered-var [*value* + 3]
                (get-value))))))
 
+(fact 
+  (macro-for [n [1 2]] 
+    `[~(* 2 n)]) 
+  => 
+  `(do [2] [4]))
+
 ;; TODO: Alex - Dec 19, 2011 - get this working right
 
 ;(defmacro a [s] `(defn ~(symbol s) [] ~s))
