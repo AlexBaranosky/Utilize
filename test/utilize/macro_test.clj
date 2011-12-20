@@ -1,5 +1,5 @@
 (ns utilize.macro-test
-  (:use clojure.test utilize.macro))
+  (:use clojure.test utilize.macro midje.sweet))
 
 ;; necessary because deftest does weird shit with namespaces, resolution, and
 ;; macroexpansion, so this can't be inside there
@@ -19,9 +19,9 @@
            (with-out-str
              (macro-do [x] `(print '~x)
                123
-               abc))))))
+               abc)))))) 
 
-(def *value* 1)
+(def ^{:dynamic true} *value* 1)
 
 (deftest test-alter-var
   (let [get-value (fn [] *value*)]

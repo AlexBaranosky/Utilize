@@ -1,7 +1,7 @@
 (ns utilize.parallel-test
   (:use clojure.test utilize.parallel))
 
-(def *i* 1)
+(def ^{:dynamic true} *i* 1)
 
 (defn mult [num]
   (* num *i*))

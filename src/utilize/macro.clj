@@ -38,7 +38,16 @@ myconst 10)."
                     (cons 'do
                           (for [~macro-args arg#]
                             ~body))
-                    ~(partition-params macro-args args)))))
+                    ~(partition-params macro-args args))))
+  
+    (defmacro macro-for
+      ""
+      ([macro-args body & args]
+         `(anon-macro [arg#]
+                      (cons 'do
+                            (for [~macro-args arg#]
+                              ~body))
+                      ~(partition-params macro-args args)))))
 
 ;; copied from clojure.contrib.def
 (defmacro ^{:dont-test "Exists in contrib, and has gross side effects anyway"}
