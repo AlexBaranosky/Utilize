@@ -75,3 +75,13 @@ myconst 10)."
   [[var-name f & args] & body]
   `(binding [~var-name (~f ~var-name ~@args)]
      ~@body))
+
+(defn macroexpand-scan
+  "Gives a seq of each progressive macroexpansion of the form until fully expanded"
+  ([form]
+    (macroexpand-scan form []))
+  ([form results]
+    (let [expanded (macroexpand-1 form)]
+      (if (= expanded form)
+        results
+        (recur expanded (conj results expanded))))))

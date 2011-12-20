@@ -28,3 +28,11 @@
     (is (= 1 *value*))
     (is (= 4 (with-altered-var [*value* + 3]
                (get-value))))))
+
+;; TODO: Alex - Dec 19, 2011 - get this working right
+
+;(defmacro a [s] `(defn ~(symbol s) [] ~s))
+;
+;(fact "gives a seq of each expansion until fully expanded"
+;  (macroexpand-scan `(a "f")) => `[ (clojure.core/defn f [] "f") 
+;                                     (def f (clojure.core/fn ([] "f"))) ] )
