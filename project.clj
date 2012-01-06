@@ -5,4 +5,5 @@
   :dependencies [[clojure "1.3.0"]
                  [org.clojure/tools.macro "0.1.1"]
                  [joda-time "2.0"]
-                 [ordered "1.0.0"]])
+                 [ordered "1.0.0"]]
+  :warn-on-reflection true)
