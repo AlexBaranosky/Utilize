@@ -1,4 +1,4 @@
-(ns utilize.map-test
+(ns utilize.controlflow-test
   (:use utilize.controlflow
         midje.sweet))
 

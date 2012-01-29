@@ -1,5 +1,6 @@
 (ns utilize.string
-  (:require [clojure.string :as str]))
+  (:require [clojure.pprint :as pp]
+            [clojure.string :as str]))
 
 (defn camelize [#^String string]
   (str/replace string
@@ -52,3 +53,6 @@
 
 (defn lowercase-keyword [#^String s]
   (keyword (.toLowerCase (str/replace s " " "-"))))
+
+(defn to-english [n]
+  (pp/cl-format nil "~@(~@[~R~]~^ ~A.~)" n))

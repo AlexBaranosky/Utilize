@@ -77,13 +77,13 @@ myconst 10)."
   `(binding [~var-name (~f ~var-name ~@args)]
      ~@body))
 
-(def macroexpand-scan
+(defn macroexpand-scan
   "Gives a seq of each progressive macroexpansion of the form until fully expanded"
-  (partial steady-state macroexpand-1))
+  [form]
+  (steady-state macroexpand-1 form))
 
 (defmacro macro-for 
-  "Macroexpands the body once for each of the elements in the 
-   right-side argument of the bindings, which should be a seq"
+  "Macroexpands the body once for each of the elements in the bindings"
   [bindings body] 
   `(let [macros# (for [~@bindings]
                      ~body)]
