@@ -1,4 +1,4 @@
-(defproject utilize "0.2.2"
+(defproject utilize "0.2.3"
   :description "Compilation of Clojure functions from around the community"
   :url "https://github.com/AlexBaranosky/Utilize"
   :dev-dependencies [[midje "1.3.0"]]
